@@ -1,10 +1,10 @@
 
 body{
-  background-color: rgba(107, 229, 236, 0.613);
+  background-color: rgb(57, 246, 246);
  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .App {
-  margin: auto;
+  margin:128px auto;
   padding:2rem;
   margin-top: 3rem;
   text-align: center;
@@ -12,9 +12,9 @@ body{
   align-items: flex-start;
   flex-direction: column;
   justify-content: flex-start;
-  max-width:500px;
-  height: 80vh;
-  background-color: rgb(161, 162, 162);
+  width:500px;
+  min-height: 30vh;
+  background-color: rgb(36, 36, 36);
   border-radius: 1rem;
   flex: 1 0 50px;
   
@@ -23,12 +23,12 @@ body{
 h1{
   font-size: 4em;
   font-weight: 500;
-  color:#222;
+  color:#6b6969;
   letter-spacing: 5;
   cursor: pointer;
 }
 h1 span{
-  transition: 0.5s;
+  transition: ease-in-out 0.5s;
 
 }
 
@@ -54,8 +54,23 @@ h1 span{
 .item{
   display: flex;
   align-items:center;
- 
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 0.1rem;
+  padding-right: 1rem;
+ margin:1rem;
+ background-color: rgb(57, 246, 246);
 
+ min-height: 2rem;
+ border-radius: 0.2rem;
+
+}
+.text-item{
+  inline-size: 16rem;
+  overflow-wrap: break-word;
+  text-align: start;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 .addtask{
   margin-right: 1rem;
@@ -75,7 +90,7 @@ button:focus{
   border: none;
   outline: none;
 }
-button{
+.addbutton{
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   border:1px solid #ccc;
    transition:box-shadow 0.1s linear;
@@ -84,3 +99,49 @@ button{
   background-color: #fff;
 }
 
+
+.delete-button{
+ border-radius: 50%;
+ border: none;
+
+
+}
+
+.icons-edit-del{
+  padding-right: 0.3rem;
+}
+.container{
+  position:relative
+}
+.box{
+  position: relative;
+  width:500px;
+  height: 150px;
+ background: rgba(0, 0, 0, 0.5);
+ overflow: hidden;
+}
+.box .content{
+  position: absolute;
+  inset:20px;
+  background:#0d122c ;
+  border:3px solid #070c23;
+  z-index: 3;
+
+}
+.box::before,
+.box::after{
+  content:'';
+  position: absolute;
+  background:linear-gradient(315deg,#00ccff,#d400d4);
+  inset:-90px 0px;
+  transition:0,5s;
+  animation:animate 8s linear infinite;
+}
+@keyframes animate{
+  0%{
+    transform:rotate(0deg);
+      }
+   100%{
+    transform:rotate(360deg)
+   }   
+}

@@ -1,37 +1,78 @@
 import React from 'react';
 import './App.css';
-import { TodoItem } from './components/TodoItem';
-import { AddTodo } from './components/AddTodo';
+import { v4 as uuidv4 } from 'uuid';
+import {RiCloseCircleLine} from 'react-icons/ri';
+import { TitleBlock } from './components/TitleBlock';
 
 function App() {
-  const [todo,setTodo] = React.useState([]);
+  const [item,setItem] = React.useState('');
+  const[todos,setTodos] = React.useState([]);
+  const inputRef = React.useRef();
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+  
 
-   function getItem(item) {
-    console.log(item);
-    setTodo((prevState) => {
-      return [...prevState, item];
-    });
+   }
+React.useEffect(()=>{
+  inputRef.current.focus();
+},[setTodos]);
+
+
+const newItem = ()=>{
+  if(item.trim() !== ''){
+    
+    const newItem = {
+      id: uuidv4(),
+      item:item,
+    }
+    setTodos((todos)=>[...todos,newItem]);
+ 
+   
+
+  }else{
+    alert('Enter something')
   }
-const getCompeted =(id)=>{
-setTodo((prevState)=>{
-  return prevState.filter((item,index)=> {
-    return index !== id
-  })
-})
+  setItem('')
+ 
 }
-  return (
-    <div className='wrapper'>
-    <div className="App">
-     <h1 className='title'> My <span>to</span><span>do</span> list</h1>
-     <AddTodo item = {getItem}/>
-     {
-      todo &&todo.map((todo,index)=>(<TodoItem id = {index} item = {todo} completed = {getCompeted}/>)
-        
-      )
-     }
+
+
+const handleChange =(e)=>{
+
+setItem(e.target.value)
+console.log(item)
+}
+const deleteTask = (id)=>{
+
+setTodos([...todos].filter(item=>item.id !== id))
+}
+
+return(
+  <div className = "App">
+<TitleBlock/>
      
-    </div></div>
-  );
+  <form onSubmit = {handleSubmit} >
+       <input className = "addtask" onChange = {handleChange} type = "text" ref = {inputRef} value = {item} placeholder = "Enter task"  /> 
+       <button className='addbutton' disabled = {!item} onClick = {newItem}>Add task</button> 
+  </form>
+  {
+    todos&&todos.map((item,index)=>(
+      <div className='item'>
+        <div className='text-item'>
+   
+        {`${item.item}`}
+        
+      </div>
+      <div className='icons-edit'>
+        <div className = "icons-edit-del"><RiCloseCircleLine className = 'delete-button' onClick = {()=>deleteTask(item.id)}/></div>
+      
+        </div>
+      </div>
+    ))
+  }
+    
+  </div>
+)
 }
 
 export default App;
